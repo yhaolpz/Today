@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Today</string>
+
+    <string name="title_home">首页</string>
+    <string name="title_favorite">喜欢</string>
+    <string name="title_notifications">通知</string>
+    <string name="title_person">我</string>
+</resources>

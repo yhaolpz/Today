@@ -1,13 +1,15 @@
 package com.yhao.today.ui;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.TextView;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.yhao.today.R;
+import com.yhao.today.dagger.component.DaggerMainActivityComponent;
+import com.yhao.today.dagger.module.MainActivityModule;
+
+import javax.inject.Inject;
 
 /**
  * Created by yhao on 2017/11/19.
@@ -17,39 +19,29 @@ import com.example.yhao.today.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_favorite:
-                    mTextMessage.setText(R.string.title_favorite);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-                case R.id.navigation_person:
-                    mTextMessage.setText(R.string.title_person);
-                    return true;
-            }
-            return false;
-        }
-    };
+    @Inject HomeFragment mHomeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        DaggerMainActivityComponent
+                .builder()
+                .mainActivityModule(new MainActivityModule(this))
+                .build()
+                .inject(this);
+
+        BottomNavigationBar mBottomNavigationBar = findViewById(R.id.bottomNavigationBar);
+        mBottomNavigationBar
+                .addItem(new BottomNavigationItem(R.drawable.ic_home_black_24dp, R.string.title_home))
+                .addItem(new BottomNavigationItem(R.drawable.ic_favorite_border_black_24dp, R.string.title_favorite))
+                .addItem(new BottomNavigationItem(R.drawable.ic_notifications_black_24dp, R.string.title_notifications))
+                .addItem(new BottomNavigationItem(R.drawable.ic_person_outline_black_24dp, R.string.title_person))
+                .initialise();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, mHomeFragment).commitAllowingStateLoss();
+
     }
 
 }

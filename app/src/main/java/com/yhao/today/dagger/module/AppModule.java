@@ -1,6 +1,10 @@
 package com.yhao.today.dagger.module;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.yhao.today.commen.AppExecutors;
+import com.yhao.today.commen.BaseApplication;
 
 import javax.inject.Singleton;
 
@@ -14,26 +18,29 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private final Context mContext;
+    private final BaseApplication mBaseApplication;
 
-    public AppModule(Context context) {
-        mContext = context;
+    public AppModule(BaseApplication baseApplication) {
+        mBaseApplication = baseApplication;
     }
 
-    /**
-     * 全局唯一
-     * @return
-     */
+
+    //提供全局对象
+
+
+    @Provides
+    BaseApplication provideApplication() {
+        return mBaseApplication;
+    }
+
     @Provides
     @Singleton
-    public Context provideContext() {
-        return mContext;
+    public AppExecutors provideAppExecutors() {
+        return new AppExecutors();
     }
 
-
-
-//    @Provides @Singleton
-//    public ToastUtil provideToastUtil(){
-//        return new ToastUtil(context);
-//    }
+    @Provides
+    SharedPreferences provideSharedPreferences() {
+        return mBaseApplication.getSharedPreferences("spfile", Context.MODE_PRIVATE);
+    }
 }

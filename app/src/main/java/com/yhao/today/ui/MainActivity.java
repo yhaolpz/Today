@@ -1,6 +1,7 @@
 package com.yhao.today.ui;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -17,14 +18,28 @@ import javax.inject.Inject;
  */
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
 
-    @Inject HomeFragment mHomeFragment;
+    @Inject
+    HomeFragment mHomeFragment;
+
+    @Inject
+    FavoriteFragment mFavoriteFragment;
+
+    @Inject
+    NotificationsFragment mNotificationsFragment;
+
+    @Inject
+    PersonFragment mPersonFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+//        AndroidInjection.inject(this);
 
         DaggerMainActivityComponent
                 .builder()
@@ -42,6 +57,45 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, mHomeFragment).commitAllowingStateLoss();
 
+        mBottomNavigationBar.setTabSelectedListener(this);
+
     }
 
+    @Override
+    public void onTabSelected(int position) {
+        changeFragment(position);
+    }
+
+    @Override
+    public void onTabUnselected(int position) {
+
+    }
+
+    @Override
+    public void onTabReselected(int position) {
+
+    }
+
+
+    private void changeFragment(int position) {
+        Fragment fragment;
+        switch (position) {
+            case 0:
+                fragment = mHomeFragment;
+                break;
+            case 1:
+                fragment = mFavoriteFragment;
+                break;
+            case 2:
+                fragment = mNotificationsFragment;
+                break;
+            case 3:
+                fragment = mPersonFragment;
+                break;
+            default:
+                fragment = null;
+                break;
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commitAllowingStateLoss();
+    }
 }

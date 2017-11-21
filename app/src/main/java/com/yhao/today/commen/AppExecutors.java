@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import javax.inject.Inject;
+
 /**
  * Created by yhao on 2017/11/19.
  * https://github.com/yhaolpz
@@ -21,15 +23,17 @@ public class AppExecutors {
 
     private final Executor mMainThread;
 
+    @Inject
+    public AppExecutors() {
+        this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(3),
+                new MainThreadExecutor());
+    }
+
+
     private AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
         this.mDiskIO = diskIO;
         this.mNetworkIO = networkIO;
         this.mMainThread = mainThread;
-    }
-
-    public AppExecutors() {
-        this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(3),
-                new MainThreadExecutor());
     }
 
     public Executor diskIO() {

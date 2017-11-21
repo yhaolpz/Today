@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Today</string>
 
+    <string name="show_api_app_secret">758d7ae717294581b8b44a4668d01e8b</string>
+    <string name="show_api_app_id">50325</string>
+
+
+
     <string name="title_home">首页</string>
     <string name="title_favorite">喜欢</string>
     <string name="title_notifications">通知</string>
     <string name="title_person">我</string>
+
 </resources>

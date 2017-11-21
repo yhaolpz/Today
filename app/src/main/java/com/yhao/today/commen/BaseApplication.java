@@ -2,6 +2,12 @@ package com.yhao.today.commen;
 
 import android.app.Application;
 
+import com.yhao.today.dagger.component.AppComponent;
+import com.yhao.today.dagger.component.AppComponentHolder;
+import com.yhao.today.dagger.component.DaggerAppComponent;
+import com.yhao.today.dagger.module.AppModule;
+
+import javax.inject.Inject;
 
 
 /**
@@ -11,4 +17,20 @@ import android.app.Application;
 
 public class BaseApplication extends Application {
 
+    @Inject AppExecutors mAppExecutors;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        AppComponent appComponent = DaggerAppComponent
+                .builder()
+                .appModule(new AppModule(this))
+                .build();
+
+        AppComponentHolder.setAppComponent(appComponent);
+
+
+
+    }
 }

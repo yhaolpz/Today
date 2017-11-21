@@ -1,8 +1,5 @@
 package com.yhao.today.dagger.module;
 
-import android.support.v7.app.AppCompatActivity;
-
-import com.yhao.today.dagger.scope.PerActivity;
 import com.yhao.today.ui.HomeFragment;
 import com.yhao.today.ui.MainActivity;
 
@@ -28,8 +25,14 @@ public class MainActivityModule {
         return activity;
     }
 
-    @Provides
-    public HomeFragment provideHomeFragment() {
-        return new HomeFragment();
-    }
+
+    /**
+     * 实例化对象有两种方法:
+     * 1.可在此处设置Provides方法,(针对第三方库中无法在构造函数上添加Inject注解的情况)
+     * 2.在构造函数上添加Inject注解
+     */
+//    @Provides
+//    public HomeFragment provideHomeFragment() {
+//        return new HomeFragment();
+//    }
 }

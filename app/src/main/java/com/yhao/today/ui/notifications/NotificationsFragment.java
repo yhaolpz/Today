@@ -1,4 +1,4 @@
-package com.yhao.today.ui;
+package com.yhao.today.ui.notifications;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

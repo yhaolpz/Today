@@ -8,13 +8,14 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by yhao on 2017/11/19.
  * https://github.com/yhaolpz
  * 全局执行池
  */
-
+@Singleton
 public class AppExecutors {
 
     private final Executor mDiskIO;

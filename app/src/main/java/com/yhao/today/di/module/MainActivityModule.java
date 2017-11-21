@@ -1,6 +1,5 @@
-package com.yhao.today.dagger.module;
+package com.yhao.today.di.module;
 
-import com.yhao.today.ui.HomeFragment;
 import com.yhao.today.ui.MainActivity;
 
 import dagger.Module;

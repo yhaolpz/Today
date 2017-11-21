@@ -1,4 +1,4 @@
-package com.yhao.today.ui;
+package com.yhao.today.ui.favorite;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,17 +16,17 @@ import javax.inject.Inject;
  * https://github.com/yhaolpz
  */
 
-public class PersonFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
 
     @Inject
-    public PersonFragment() {
+    public FavoriteFragment() {
 
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_person, container,false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container,false);
 
         return view;
     }

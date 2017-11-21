@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.yhao.today.R;
-import com.yhao.today.dagger.component.DaggerMainActivityComponent;
-import com.yhao.today.dagger.module.MainActivityModule;
+import com.yhao.today.ui.favorite.FavoriteFragment;
+import com.yhao.today.ui.home.HomeFragment;
+import com.yhao.today.ui.notifications.NotificationsFragment;
+import com.yhao.today.ui.person.PersonFragment;
 
 import javax.inject.Inject;
 
@@ -38,14 +40,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mHomeFragment = new HomeFragment();
+        mFavoriteFragment = new FavoriteFragment();
+        mNotificationsFragment = new NotificationsFragment();
+        mPersonFragment = new PersonFragment();
 
 //        AndroidInjection.inject(this);
 
-        DaggerMainActivityComponent
-                .builder()
-                .mainActivityModule(new MainActivityModule(this))
-                .build()
-                .inject(this);
+//        DaggerMainActivityComponent
+//                .builder()
+//                .mainActivityModule(new MainActivityModule(this))
+//                .build()
+//                .inject(this);
 
         BottomNavigationBar mBottomNavigationBar = findViewById(R.id.bottomNavigationBar);
         mBottomNavigationBar

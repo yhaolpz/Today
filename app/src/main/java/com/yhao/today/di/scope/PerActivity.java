@@ -1,4 +1,4 @@
-package com.yhao.today.dagger.scope;
+package com.yhao.today.di.scope;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

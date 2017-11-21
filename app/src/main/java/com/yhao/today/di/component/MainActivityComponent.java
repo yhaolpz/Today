@@ -1,7 +1,7 @@
-package com.yhao.today.dagger.component;
+package com.yhao.today.di.component;
 
-import com.yhao.today.dagger.module.MainActivityModule;
-import com.yhao.today.dagger.scope.PerActivity;
+import com.yhao.today.di.module.MainActivityModule;
+import com.yhao.today.di.scope.PerActivity;
 import com.yhao.today.ui.MainActivity;
 
 import dagger.Component;

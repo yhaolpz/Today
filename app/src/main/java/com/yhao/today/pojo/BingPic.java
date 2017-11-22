@@ -2,22 +2,23 @@ package com.yhao.today.pojo;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 /**
  * Created by yhao on 17-11-21.
  */
 
 
-@Entity
+@Entity(primaryKeys = {"date"})
 public class BingPic {
 
-    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String title;
     private String subtitle;
     private String description;
     private String copyright;
+    @NonNull
     private String date;
     private String img_1366;
     private String img_1920;

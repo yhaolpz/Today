@@ -10,6 +10,17 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+
+
+        //导出数据库表结构，如果不设置room会警告，也可以设置exportSchema = false来消除警告
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
+
     }
     buildTypes {
         release {
@@ -62,6 +73,10 @@ dependencies {
     //network
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+
+    //log
+    implementation 'com.orhanobut:logger:2.1.0'
 
 
 

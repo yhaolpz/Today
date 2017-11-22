@@ -38,24 +38,24 @@ public class ApiResponse<T> {
     private static final String NEXT_LINK = "next";
     public final int code;
     @Nullable
-    public final T showapi_res_body;
+    public final T body;
     @Nullable
-    public final String showapi_res_error;
+    public final String errorMessage;
     @NonNull
     public final Map<String, String> links;
 
     public ApiResponse(Throwable error) {
         code = 500;
-        showapi_res_body = null;
-        showapi_res_error = error.getMessage();
+        body = null;
+        errorMessage = error.getMessage();
         links = Collections.emptyMap();
     }
 
     public ApiResponse(Response<T> response) {
         code = response.code();
         if(response.isSuccessful()) {
-            showapi_res_body = response.body();
-            showapi_res_error = null;
+            body = response.body();
+            errorMessage = null;
         } else {
             String message = null;
             if (response.errorBody() != null) {
@@ -68,8 +68,8 @@ public class ApiResponse<T> {
             if (message == null || message.trim().length() == 0) {
                 message = response.message();
             }
-            showapi_res_error = message;
-            showapi_res_body = null;
+            errorMessage = message;
+            body = null;
         }
         String linkHeader = response.headers().get("link");
         if (linkHeader == null) {
@@ -106,5 +106,15 @@ public class ApiResponse<T> {
 
             return null;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ApiResponse{" +
+                "code=" + code +
+                ", body=" + body +
+                ", errorMessage='" + errorMessage + '\'' +
+                ", links=" + links +
+                '}';
     }
 }

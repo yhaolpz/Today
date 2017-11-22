@@ -33,6 +33,6 @@ public class HomeViewModel extends ViewModel{
 
 
     private void loadData() {
-        mBingPicData=mBingPicRepository.loadBingPic();
+        mBingPicData = mBingPicRepository.loadBingPic();
     }
 }

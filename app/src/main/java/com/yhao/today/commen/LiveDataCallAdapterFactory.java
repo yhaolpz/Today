@@ -18,7 +18,8 @@ package com.yhao.today.commen;
 
 import android.arch.lifecycle.LiveData;
 
-import com.yhao.today.service.ApiResponse;
+
+import com.yhao.today.service.WrapResult;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
@@ -36,7 +37,7 @@ public class LiveDataCallAdapterFactory extends CallAdapter.Factory {
         }
         Type observableType = getParameterUpperBound(0, (ParameterizedType) returnType);
         Class<?> rawObservableType = getRawType(observableType);
-        if (rawObservableType != ApiResponse.class) {
+        if (rawObservableType != WrapResult.class) {
             throw new IllegalArgumentException("type must be a resource");
         }
         if (! (observableType instanceof ParameterizedType)) {

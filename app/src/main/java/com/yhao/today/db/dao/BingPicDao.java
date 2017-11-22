@@ -21,6 +21,9 @@ public interface BingPicDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertBingPic(BingPic... bingPics);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long insertBingPic(BingPic bingPic);
+
 //
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
 //    List<Long> insertBingPic(List<BingPic> bingPics);
@@ -30,7 +33,7 @@ public interface BingPicDao {
 //    void deleteBingPic(BingPic... bingPics);
 
 
-    @Query("SELECT * FROM BingPic")
-    LiveData<BingPic> loadAllBingPic();
+    @Query("SELECT * FROM BingPic WHERE date = :date")
+    LiveData<BingPic> load(String date);
 
 }

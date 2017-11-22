@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.yhao.today.R;
+import com.orhanobut.logger.Logger;
 import com.yhao.today.commen.net.Resource;
 import com.yhao.today.pojo.BingPic;
 
@@ -24,7 +25,6 @@ import javax.inject.Inject;
 
 public class HomeFragment extends Fragment {
 
-    private  final String TAG = this.getClass().getSimpleName();
 
     private HomeViewModel mHomeViewModel;
 
@@ -40,9 +40,12 @@ public class HomeFragment extends Fragment {
         mHomeViewModel.getBingPicData().observe(this, new Observer<Resource<BingPic>>() {
             @Override
             public void onChanged(@Nullable Resource<BingPic> bingPicResource) {
-                Log.d(TAG, "" + bingPicResource);
+                Logger.d("HomeFragment "+bingPicResource);
             }
         });
+
+
+
     }
 
     @Nullable

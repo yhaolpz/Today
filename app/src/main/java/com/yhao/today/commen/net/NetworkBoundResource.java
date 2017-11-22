@@ -9,7 +9,11 @@ import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import com.yhao.today.commen.AppExecutors;
-import com.yhao.today.service.ApiResponse;
+import com.yhao.today.service.WrapResult;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by yhao on 17-11-21.
@@ -64,9 +68,26 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
 
     }
 
-    private void fetchFromNetwork(final LiveData<ResultType> dbSource) {
+    private void fetchFromNetwork(final LiveData<ResultType> dbSource)  {
         //发送请求，从网络获取数据
-        LiveData<ApiResponse<RequestType>> apiResponse = createCall();
+        LiveData<WrapResult<RequestType>> apiResponse = new LiveData<WrapResult<RequestType>>(){
+            @Override
+            protected void onActive() {
+                super.onActive();
+                createCall().enqueue(new Callback<WrapResult<RequestType>>() {
+                    @Override
+                    public void onResponse(Call<WrapResult<RequestType>> call, Response<WrapResult<RequestType>> response) {
+                        postValue(new WrapResult<>(response));
+                    }
+
+                    @Override
+                    public void onFailure(Call<WrapResult<RequestType>> call, Throwable t) {
+                        postValue(new WrapResult<>(t));
+                    }
+                });
+            }
+
+        };
         //监听本地数据
         result.addSource(dbSource, new Observer<ResultType>() {
             @Override
@@ -76,13 +97,13 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
             }
         });
         //监听从网络获取的apiResponse
-        result.addSource(apiResponse, new Observer<ApiResponse<RequestType>>() {
+        result.addSource(apiResponse, new Observer<WrapResult<RequestType>>() {
             @Override
-            public void onChanged(@Nullable ApiResponse<RequestType> response) {
+            public void onChanged(@Nullable WrapResult<RequestType> response) {
                 //网络请求结束，取消对所有数据的监听
                 result.removeSource(apiResponse);
                 result.removeSource(dbSource);
-                if (response.isSuccessful()) {
+                if (response.isSuccessFul()) {
                     saveResultAndReInit(response);
                 } else {
                     onFetchFailed();
@@ -90,7 +111,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
                     result.addSource(dbSource, new Observer<ResultType>() {
                         @Override
                         public void onChanged(@Nullable ResultType newData) {
-                            result.setValue(Resource.error(response.showapi_res_error, newData));
+                            result.setValue(Resource.error(response.getShowapi_res_error(), newData));
                         }
                     });
                 }
@@ -101,7 +122,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
 
 
     @MainThread
-    private void saveResultAndReInit(ApiResponse<RequestType> response) {
+    private void saveResultAndReInit(WrapResult<RequestType> response) {
         appExecutors.diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -127,8 +148,9 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
      * 从 ApiResponse 中 获取数据
      */
     @WorkerThread
-    protected RequestType processResponse(ApiResponse<RequestType> response) {
-        return response.showapi_res_body;
+    protected RequestType processResponse(WrapResult<RequestType> response) {
+
+        return response.getShowapi_res_body();
     }
 
 
@@ -153,10 +175,11 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
 
     /**
      * 从网络上获取数据
+     * TODO 由于从retrofit直接返回livedata有问题，先用Call，模仿 LiveDataCallAdapter 中的转换过程
      */
     @NonNull
     @MainThread
-    protected abstract LiveData<ApiResponse<RequestType>> createCall();
+    protected abstract Call<WrapResult<RequestType>> createCall();
 
     /**
      * 从网络上获取数据失败

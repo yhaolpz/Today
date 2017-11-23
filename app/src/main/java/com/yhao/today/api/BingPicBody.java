@@ -1,11 +1,11 @@
-package com.yhao.today.pojo;
+package com.yhao.today.api;
 
 /**
  * Created by yhao on 2017/11/22.
  * https://github.com/yhaolpz
  */
 
-public class Body<T> {
+public class BingPicBody<T> {
     private int ret_code;
     private String ret_message;
     private T data;
@@ -36,7 +36,7 @@ public class Body<T> {
 
     @Override
     public String toString() {
-        return "Body{" +
+        return "BingPicBody{" +
                 "ret_code=" + ret_code +
                 ", ret_message='" + ret_message + '\'' +
                 ", data=" + data +

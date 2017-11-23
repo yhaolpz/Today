@@ -9,27 +9,18 @@ import android.support.annotation.NonNull;
  */
 
 
-@Entity(primaryKeys = {"date"})
+@Entity()
 public class BingPic {
 
-    private int id;
-
+    @NonNull
+    @PrimaryKey
+    private String date;
     private String title;
     private String subtitle;
     private String description;
     private String copyright;
-    @NonNull
-    private String date;
     private String img_1366;
     private String img_1920;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -90,7 +81,6 @@ public class BingPic {
     @Override
     public String toString() {
         return "BingPic{" +
-                "id=" + id +
                 ", title='" + title + '\'' +
                 ", subtitle='" + subtitle + '\'' +
                 ", description='" + description + '\'' +

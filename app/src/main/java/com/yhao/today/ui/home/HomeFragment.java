@@ -5,15 +5,23 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.yhao.today.R;
 import com.orhanobut.logger.Logger;
-import com.yhao.today.commen.net.Resource;
+import com.yhao.today.api.Resource;
+import com.yhao.today.api.Status;
 import com.yhao.today.pojo.BingPic;
 
 import javax.inject.Inject;
@@ -23,10 +31,11 @@ import javax.inject.Inject;
  * https://github.com/yhaolpz
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
     private HomeViewModel mHomeViewModel;
+
 
     @Inject
     public HomeFragment() {
@@ -40,18 +49,62 @@ public class HomeFragment extends Fragment {
         mHomeViewModel.getBingPicData().observe(this, new Observer<Resource<BingPic>>() {
             @Override
             public void onChanged(@Nullable Resource<BingPic> bingPicResource) {
-                Logger.d("HomeFragment "+bingPicResource);
+                bindBingPicData(bingPicResource);
+
             }
         });
-
-
-
     }
+
+
+    private void bindBingPicData(Resource<BingPic> bingPicResource) {
+        if (bingPicResource.status == Status.SUCCESS) {
+            BingPic bingPic = bingPicResource.data;
+            Glide.with(this).load(bingPic.getImg_1366()).into(mBingPicIv);
+            mBingPicTitleTv.setText(bingPic.getTitle());
+            mBingPicSubTitleTv.setText(bingPic.getSubtitle());
+            mBingPicDescriptionTv.setText(bingPic.getDescription());
+        }
+    }
+
+
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container,false);
+        mBingPicIv = view.findViewById(R.id.bingPicIv);
+        mBingPicTitleTv = view.findViewById(R.id.BingPicTitleTv);
+        mBingPicSubTitleTv = view.findViewById(R.id.BingPicSubTitleTv);
+        mBingPicDescriptionTv = view.findViewById(R.id.BingPicDescriptionTv);
+        mToolbarMenuLink = view.findViewById(R.id.toolbarMenuLink);
+        mToolbarMenuFind = view.findViewById(R.id.toolbarMenuFind);
+        mBingPicContentLL =  view.findViewById(R.id.BingPicContentLL);
+        mBingPicContentLL.setOnClickListener(this);
+        mToolbarMenuLink.setOnClickListener(this);
+        mToolbarMenuFind.setOnClickListener(this);
         return view;
+    }
+
+    private ImageView mBingPicIv;
+    private TextView mBingPicTitleTv;
+    private TextView mBingPicSubTitleTv;
+    private TextView mBingPicDescriptionTv;
+    private ImageButton mToolbarMenuLink;
+    private ImageButton mToolbarMenuFind;
+    private LinearLayout mBingPicContentLL;
+
+    @Override
+    public void onClick(View v) {
+        if (v == mToolbarMenuLink) {
+        }
+
+        if (v == mToolbarMenuFind) {
+        }
+
+        if (v == mBingPicContentLL) {
+
+        }
+
     }
 }

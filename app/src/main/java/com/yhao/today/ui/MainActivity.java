@@ -3,6 +3,7 @@ package com.yhao.today.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -104,4 +105,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commitAllowingStateLoss();
     }
+
+
 }

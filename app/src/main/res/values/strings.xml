@@ -10,5 +10,6 @@
     <string name="title_favorite">喜欢</string>
     <string name="title_notifications">通知</string>
     <string name="title_person">我</string>
+    <string name="bingPicStr">Bing今日壁纸</string>
 
 </resources>

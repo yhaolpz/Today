@@ -3,10 +3,8 @@ package com.yhao.today.di.module;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.yhao.today.commen.AppExecutors;
+import com.yhao.today.api.TodayApi;
 import com.yhao.today.commen.BaseApplication;
-import com.yhao.today.commen.LiveDataCallAdapterFactory;
-import com.yhao.today.service.Webservice;
 
 import javax.inject.Singleton;
 
@@ -37,13 +35,12 @@ public class AppModule {
 
 
     @Singleton @Provides
-    Webservice provideWebService() {
+    TodayApi provideWebService() {
         return new Retrofit.Builder()
                 .baseUrl("http://route.showapi.com/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .build()
-                .create(Webservice.class);
+                .create(TodayApi.class);
     }
 
 

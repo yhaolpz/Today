@@ -1,4 +1,4 @@
-package com.yhao.today.service;
+package com.yhao.today.api;
 
 import retrofit2.Response;
 

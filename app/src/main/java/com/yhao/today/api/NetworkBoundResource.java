@@ -1,4 +1,4 @@
-package com.yhao.today.commen.net;
+package com.yhao.today.api;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import com.yhao.today.commen.AppExecutors;
-import com.yhao.today.service.WrapResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +40,9 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
         //正在加载时显示数据，相当于 placeHolder 占位数据
         result.setValue(Resource.loading(null));
         //从数据库加载本地数据
-        LiveData<ResultType> dbSource = loadFromDb();
+
+        LiveData<ResultType> dbSource  = loadFromDb();
+
         //监听本地数据
         result.addSource(dbSource, new Observer<ResultType>() {
             @Override
@@ -149,7 +150,6 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
      */
     @WorkerThread
     protected RequestType processResponse(WrapResult<RequestType> response) {
-
         return response.getShowapi_res_body();
     }
 

@@ -4,11 +4,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.yhao.today.commen.net.Resource;
+import com.yhao.today.api.Resource;
 import com.yhao.today.pojo.BingPic;
 import com.yhao.today.repository.BingPicRepository;
-
-import java.util.List;
 
 /**
  * Created by yhao on 2017/11/21.

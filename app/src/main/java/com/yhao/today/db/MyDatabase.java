@@ -11,7 +11,7 @@ import com.yhao.today.pojo.BingPic;
  * https://github.com/yhaolpz
  */
 
-@Database(entities = {BingPic.class}, version = 2 )
+@Database(entities = {BingPic.class}, version = 3 )
 public abstract class MyDatabase extends RoomDatabase {
 
     public abstract BingPicDao bingPicDao();

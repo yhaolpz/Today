@@ -1,6 +1,5 @@
 package com.yhao.today.commen;
 
-import android.app.Activity;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.util.Log;
@@ -9,17 +8,12 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.yhao.today.api.TodayApi;
 import com.yhao.today.db.MyDatabase;
 import com.yhao.today.db.dao.BingPicDao;
-import com.yhao.today.service.Webservice;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -57,15 +51,15 @@ public class BaseApplication extends Application {
 
 
     private BingPicDao bingPicDao;
-    private Webservice mWebservice;
+    private TodayApi mTodayservice;
     private AppExecutors mAppExecutors;
 
     public BingPicDao getBingPicDao() {
         return bingPicDao;
     }
 
-    public Webservice getWebservice() {
-        return mWebservice;
+    public TodayApi getTodayservice() {
+        return mTodayservice;
     }
 
     public AppExecutors getAppExecutors() {
@@ -95,7 +89,7 @@ public class BaseApplication extends Application {
                 .client(client)
                 .build();
 
-        mWebservice = mRetrofit.create(Webservice.class);
+        mTodayservice = mRetrofit.create(TodayApi.class);
 
 
         mAppExecutors = new AppExecutors();

@@ -33,7 +33,13 @@ public interface BingPicDao {
 //    void deleteBingPic(BingPic... bingPics);
 
 
+    /**
+     * 返回 LiveData 就在主线程 ，
+     * 否则必须在子线程，不然就会报错
+     */
     @Query("SELECT * FROM BingPic WHERE date = :date")
     LiveData<BingPic> load(String date);
+
+
 
 }

@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by yhao on 2017/11/20.
  * https://github.com/yhaolpz
  */
-@Module()
+ @Module()
 public class AppModule {
 
     private final BaseApplication mBaseApplication;

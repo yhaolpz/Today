@@ -2,10 +2,9 @@ package com.yhao.today.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
-import com.yhao.today.api.BingPicBody;
+import com.yhao.today.pojo.BingPicBody;
 import com.yhao.today.api.TodayApi;
 import com.yhao.today.commen.App;
 import com.yhao.today.commen.AppExecutors;
@@ -18,8 +17,6 @@ import com.yhao.today.util.RateLimiter;
 import com.yhao.today.util.TimeUtil;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
 
 import retrofit2.Call;
 
@@ -36,7 +33,6 @@ public class BingPicRepository {
     private RateLimiter<String> mBingPicRateLimit = new RateLimiter<>(1, TimeUnit.MINUTES);
 
 
-    @Inject
     public BingPicRepository(BingPicDao bingPicDao, TodayApi todayApi, AppExecutors appExecutors) {
         mBingPicDao = bingPicDao;
         mTodayApi = todayApi;

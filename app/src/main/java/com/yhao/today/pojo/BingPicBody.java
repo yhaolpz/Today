@@ -1,4 +1,4 @@
-package com.yhao.today.api;
+package com.yhao.today.pojo;
 
 /**
  * Created by yhao on 2017/11/22.

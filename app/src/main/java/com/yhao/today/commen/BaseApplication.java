@@ -11,6 +11,9 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.yhao.today.api.TodayApi;
 import com.yhao.today.db.MyDatabase;
 import com.yhao.today.db.dao.BingPicDao;
+import com.yhao.today.di.component.AppComponent;
+import com.yhao.today.di.component.DaggerAppComponent;
+import com.yhao.today.di.module.AppModule;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,21 +28,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * https://github.com/yhaolpz
  */
 
-//public class BaseApplication extends Application implements HasActivityInjector{
+
 public class BaseApplication extends Application {
 
-//    @Inject
-//    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
+    private AppComponent mAppComponent;
+
+    public AppComponent getAppComponent() {
+        return mAppComponent;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-//        AppComponent appComponent = DaggerAppComponent
-//                .builder()
-//                .appModule(new AppModule(this))
-//                .build();
+        mAppComponent = DaggerAppComponent
+                .builder()
+                .appModule(new AppModule(this))
+                .build();
 //
 //        AppComponentHolder.setAppComponent(appComponent);
 

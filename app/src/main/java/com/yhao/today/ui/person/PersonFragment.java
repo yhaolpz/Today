@@ -18,10 +18,6 @@ import javax.inject.Inject;
 
 public class PersonFragment extends Fragment {
 
-    @Inject
-    public PersonFragment() {
-
-    }
 
     @Nullable
     @Override

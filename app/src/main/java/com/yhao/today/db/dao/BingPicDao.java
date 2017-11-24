@@ -24,14 +24,6 @@ public interface BingPicDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertBingPic(BingPic bingPic);
 
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    List<Long> insertBingPic(List<BingPic> bingPics);
-//
-//
-//    @Delete
-//    void deleteBingPic(BingPic... bingPics);
-
 
     /**
      * 返回 LiveData 就在主线程 ，

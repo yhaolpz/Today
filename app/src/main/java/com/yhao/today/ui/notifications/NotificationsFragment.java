@@ -18,10 +18,6 @@ import javax.inject.Inject;
 
 public class NotificationsFragment extends Fragment {
 
-    @Inject
-    public NotificationsFragment() {
-
-    }
 
     @Nullable
     @Override

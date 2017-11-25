@@ -15,8 +15,15 @@ import javax.inject.Singleton;
  * https://github.com/yhaolpz
  * 全局执行池
  */
-@Singleton
 public class AppExecutors {
+
+    private static class AppExecutorsHolder{
+        private static final AppExecutors instance = new AppExecutors();
+    }
+
+    public static AppExecutors getInstance() {
+        return AppExecutorsHolder.instance;
+    }
 
     private final Executor mDiskIO;
 
@@ -24,17 +31,11 @@ public class AppExecutors {
 
     private final Executor mMainThread;
 
-    @Inject
-    public AppExecutors() {
-        this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(3),
-                new MainThreadExecutor());
-    }
 
-
-    private AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
-        this.mDiskIO = diskIO;
-        this.mNetworkIO = networkIO;
-        this.mMainThread = mainThread;
+    private AppExecutors() {
+        this.mDiskIO = Executors.newSingleThreadExecutor();
+        this.mNetworkIO = Executors.newFixedThreadPool(3);
+        this.mMainThread = new MainThreadExecutor();
     }
 
     public Executor diskIO() {

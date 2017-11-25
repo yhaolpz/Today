@@ -33,23 +33,5 @@ public class MainActivityModule {
      */
 
 
-    @Provides
-    public HomeFragment provideHomeFragment() {
-        return new HomeFragment();
-    }
 
-    @Provides
-    public FavoriteFragment provideFavoriteFragment() {
-        return new FavoriteFragment();
-    }
-
-    @Provides
-    public NotificationsFragment provideNotificationsFragment() {
-        return new NotificationsFragment();
-    }
-
-    @Provides
-    public PersonFragment providePersonFragment() {
-        return new PersonFragment();
-    }
 }

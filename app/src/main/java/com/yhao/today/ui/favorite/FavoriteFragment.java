@@ -18,6 +18,10 @@ import javax.inject.Inject;
 
 public class FavoriteFragment extends Fragment {
 
+    @Inject
+    public FavoriteFragment() {
+    }
+
 
     @Nullable
     @Override

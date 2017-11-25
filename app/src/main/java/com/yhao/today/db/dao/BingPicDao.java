@@ -21,8 +21,6 @@ public interface BingPicDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertBingPic(BingPic... bingPics);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertBingPic(BingPic bingPic);
 
 
     /**

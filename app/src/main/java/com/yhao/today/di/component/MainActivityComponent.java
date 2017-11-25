@@ -1,8 +1,6 @@
 package com.yhao.today.di.component;
 
-import com.yhao.today.di.module.AppModule;
 import com.yhao.today.di.module.MainActivityModule;
-import com.yhao.today.di.scope.ActivityScope;
 import com.yhao.today.ui.MainActivity;
 
 import dagger.Component;

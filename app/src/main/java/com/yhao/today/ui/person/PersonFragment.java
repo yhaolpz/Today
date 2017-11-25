@@ -18,7 +18,9 @@ import javax.inject.Inject;
 
 public class PersonFragment extends Fragment {
 
-
+    @Inject
+    public PersonFragment() {
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
  */
 @Entity()
 public class HistoryToday {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
     private String img;
@@ -63,5 +63,17 @@ public class HistoryToday {
 
     public void setDay(int day) {
         this.day = day;
+    }
+
+    @Override
+    public String toString() {
+        return "HistoryToday{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", img='" + img + '\'' +
+                ", month=" + month +
+                ", year='" + year + '\'' +
+                ", day=" + day +
+                '}';
     }
 }

@@ -1,21 +1,14 @@
 package com.yhao.today.ui;
 
-import android.arch.persistence.room.Insert;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.yhao.today.R;
-import com.yhao.today.api.TodayApi;
-import com.yhao.today.commen.App;
-import com.yhao.today.commen.BaseApplication;
 import com.yhao.today.di.component.DaggerMainActivityComponent;
-import com.yhao.today.di.module.AppModule;
 import com.yhao.today.di.module.MainActivityModule;
-import com.yhao.today.di.scope.ActivityScope;
 import com.yhao.today.ui.favorite.FavoriteFragment;
 import com.yhao.today.ui.home.HomeFragment;
 import com.yhao.today.ui.notifications.NotificationsFragment;
@@ -50,10 +43,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        DaggerMainActivityComponent.builder()
-                .mainActivityModule(new MainActivityModule(this))
-                .build().inject(this);
+        DaggerMainActivityComponent.create().inject(this);
 
 
 

@@ -1,15 +1,13 @@
 package com.yhao.today.pojo;
 
-import java.util.List;
-
 /**
  * Created by yhao on 2017/11/25.
  * https://github.com/yhaolpz
  */
 
-public class HistoryTodayBody {
+public class HistoryTodayBody<T> {
     private int ret_code;
-    private List<HistoryToday> list;
+    private T list;
 
     public int getRet_code() {
         return ret_code;
@@ -19,11 +17,19 @@ public class HistoryTodayBody {
         this.ret_code = ret_code;
     }
 
-    public List<HistoryToday> getList() {
+    public T getList() {
         return list;
     }
 
-    public void setList(List<HistoryToday> list) {
+    public void setList(T list) {
         this.list = list;
+    }
+
+    @Override
+    public String toString() {
+        return "HistoryTodayBody{" +
+                "ret_code=" + ret_code +
+                ", list=" + list +
+                '}';
     }
 }

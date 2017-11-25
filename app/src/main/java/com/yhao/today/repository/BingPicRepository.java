@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
+import com.yhao.today.db.MyDatabase;
 import com.yhao.today.pojo.BingPicBody;
 import com.yhao.today.api.TodayApi;
 import com.yhao.today.commen.App;
@@ -18,6 +19,8 @@ import com.yhao.today.util.TimeUtil;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 
 /**
@@ -30,17 +33,12 @@ public class BingPicRepository {
     private final BingPicDao mBingPicDao;
     private final TodayApi mTodayApi;
     private final AppExecutors mAppExecutors;
-    private RateLimiter<String> mBingPicRateLimit = new RateLimiter<>(1, TimeUnit.MINUTES);
 
-
-    public BingPicRepository(BingPicDao bingPicDao, TodayApi todayApi, AppExecutors appExecutors) {
-        mBingPicDao = bingPicDao;
-        mTodayApi = todayApi;
-        mAppExecutors = appExecutors;
-    }
 
     public BingPicRepository() {
-        this(App.get().getBingPicDao(), App.get().getTodayservice(), App.get().getAppExecutors());
+        mBingPicDao = App.getMyDatabase().bingPicDao();
+        mTodayApi = App.getTodayApi();
+        mAppExecutors = App.getAppExecutors();
     }
 
     public LiveData<Resource<BingPic>> loadBingPic() {
@@ -54,7 +52,7 @@ public class BingPicRepository {
             @Override
             protected boolean shouldFetch(BingPic data) {
                 return data == null ||
-                        (mBingPicRateLimit.shouldFetch(data.getClass().getSimpleName())
+                        (App.getOneMinRateLimit().shouldFetch(data.getClass().getSimpleName())
                                 && !TimeUtil.getDateStr().equals(data.getDate()));
             }
 

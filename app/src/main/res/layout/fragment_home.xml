@@ -62,6 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@color/colorHomeBack"
             >
 
             <FrameLayout
@@ -95,11 +96,10 @@
 
 
                 <LinearLayout
-                    android:id="@+id/BingPicContentLL"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:layout_gravity="bottom"
-                    android:background="@drawable/ripple_with_no_mask"
+                    android:background="@color/colorPrimaryDark"
                     android:orientation="vertical"
                     android:padding="10dp"
                     >
@@ -137,9 +137,88 @@
 
                 </LinearLayout>
 
-
+                <View
+                    android:id="@+id/bingPicFloatView"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:background="@drawable/ripple_with_no_mask"
+                    />
             </FrameLayout>
 
+            <LinearLayout
+                android:id="@+id/historyTodayTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_title_size"
+                android:padding="@dimen/home_title_padding_size"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:background="?attr/selectableItemBackground"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:textSize="@dimen/home_title_text_size"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="@string/historyTodayStr"
+                    android:layout_gravity="bottom"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/home_more_text_size"
+                    android:textColor="@color/colorTabChecked"
+                    android:text="@string/moreStr"
+                    android:layout_gravity="bottom"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/historyTodayRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
+            <LinearLayout
+                android:layout_marginTop="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_title_size"
+                android:padding="@dimen/home_title_padding_size"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:background="?attr/selectableItemBackground"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:textSize="@dimen/home_title_text_size"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="@string/historyTodayStr"
+                    android:layout_gravity="bottom"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/home_more_text_size"
+                    android:textColor="@color/colorTabChecked"
+                    android:text="@string/moreStr"
+                    android:layout_gravity="bottom"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 

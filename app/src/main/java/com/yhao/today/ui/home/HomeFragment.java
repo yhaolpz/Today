@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -15,19 +15,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.MediaStoreSignature;
 import com.bumptech.glide.signature.StringSignature;
 import com.example.yhao.today.R;
 import com.orhanobut.logger.Logger;
 import com.yhao.today.api.Resource;
 import com.yhao.today.api.Status;
-import com.yhao.today.commen.BaseApplication;
-import com.yhao.today.di.component.DaggerHomeFragmentComponent;
-import com.yhao.today.di.module.HomeFragmentModule;
 import com.yhao.today.pojo.BingPic;
+import com.yhao.today.pojo.HistoryToday;
+import com.yhao.today.ui.OnItemClickListener;
+import com.yhao.today.util.AutoClearedValue;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -38,26 +38,34 @@ import javax.inject.Inject;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    @Inject
-    HomeViewModel mHomeViewModel;
 
+    private HomeViewModel mHomeViewModel;
+
+    @Inject
+    public HomeFragment() {
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mHomeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        mHomeViewModel.getBingPicData().observe(this, this::bindBingPicData);
+        mHomeViewModel.getHistoryTodayData().observe(this, this::bindHistoryTodayData);
+    }
 
-        DaggerHomeFragmentComponent.builder()
-                .homeFragmentModule(new HomeFragmentModule(this))
-                .appComponent(((BaseApplication)getActivity().getApplication()).getAppComponent())
-                .build().inject(this);
+    private void bindHistoryTodayData(Resource<List<HistoryToday>> listResource) {
+        Logger.d(listResource);
+        if (listResource.status == Status.SUCCESS) {
+            AutoClearedValue<HistoryTodayAdapter> historyTodayAdapter = new AutoClearedValue<>(
+                    this, new HistoryTodayAdapter(listResource.data));
+            historyTodayAdapter.get().setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
 
-        mHomeViewModel.getBingPicData().observe(this, new Observer<Resource<BingPic>>() {
-            @Override
-            public void onChanged(@Nullable Resource<BingPic> bingPicResource) {
-                bindBingPicData(bingPicResource);
-
-            }
-        });
+                }
+            });
+            mHistoryTodayRecyclerView.setAdapter(historyTodayAdapter.get());
+        }
     }
 
 
@@ -76,16 +84,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        //findView
         mBingPicIv = view.findViewById(R.id.bingPicIv);
         mBingPicTitleTv = view.findViewById(R.id.BingPicTitleTv);
         mBingPicSubTitleTv = view.findViewById(R.id.BingPicSubTitleTv);
         mBingPicDescriptionTv = view.findViewById(R.id.BingPicDescriptionTv);
         mToolbarMenuLink = view.findViewById(R.id.toolbarMenuLink);
         mToolbarMenuFind = view.findViewById(R.id.toolbarMenuFind);
-        mBingPicContentLL = view.findViewById(R.id.BingPicContentLL);
-        mBingPicContentLL.setOnClickListener(this);
+        mBingPicFloatView = view.findViewById(R.id.bingPicFloatView);
+        mHistoryTodayTitle = view.findViewById(R.id.historyTodayTitle);
+        mHistoryTodayRecyclerView = view.findViewById(R.id.historyTodayRecyclerView);
+
+        //initView
+        mHistoryTodayRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+
+        //initEvent
         mToolbarMenuLink.setOnClickListener(this);
         mToolbarMenuFind.setOnClickListener(this);
+        mBingPicFloatView.setOnClickListener(this);
+        mHistoryTodayTitle.setOnClickListener(this);
         return view;
     }
 
@@ -95,7 +114,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView mBingPicDescriptionTv;
     private ImageButton mToolbarMenuLink;
     private ImageButton mToolbarMenuFind;
-    private LinearLayout mBingPicContentLL;
+    private View mBingPicFloatView;
+    private LinearLayout mHistoryTodayTitle;
+    private RecyclerView mHistoryTodayRecyclerView;
+
 
     @Override
     public void onClick(View v) {
@@ -105,7 +127,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if (v == mToolbarMenuFind) {
         }
 
-        if (v == mBingPicContentLL) {
+        if (v == mBingPicFloatView) {
+
+        }
+        if (v == mHistoryTodayTitle) {
 
         }
 

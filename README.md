@@ -9,7 +9,7 @@ This is a sample app that uses Android Architecture Components with Dagger 2.
 
 关键库  ： Lifecycle + LiveData + ViewModel + Room/Retrofit + Dagger2
 
-界  面  :  模仿获 2017 Material Design 设计奖应用 <Blinkist>
+界  面  :  模仿获 2017 Material Design 设计奖应用 < Blinkist >
 
 架  构  :  MVVM  ,   (关注点分离、模型驱动界面)
 

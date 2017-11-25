@@ -18,7 +18,9 @@ import javax.inject.Inject;
 
 public class NotificationsFragment extends Fragment {
 
-
+    @Inject
+    public NotificationsFragment() {
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

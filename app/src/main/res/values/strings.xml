@@ -11,5 +11,7 @@
     <string name="title_notifications">通知</string>
     <string name="title_person">我</string>
     <string name="bingPicStr">Bing今日壁纸</string>
+    <string name="historyTodayStr">历史上的今天</string>
+    <string name="moreStr">More</string>
 
 </resources>

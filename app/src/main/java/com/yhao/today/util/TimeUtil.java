@@ -3,6 +3,7 @@ package com.yhao.today.util;
 import android.annotation.SuppressLint;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -18,6 +19,15 @@ public class TimeUtil {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
         return sdf2.format(date);
     }
+
+    public static int getMonth() {
+        return Calendar.getInstance().get(Calendar.MONTH) + 1;
+    }
+
+    public static int getDay() {
+        return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    }
+
 
 
 

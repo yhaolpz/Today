@@ -24,6 +24,7 @@ import com.yhao.today.api.Resource;
 import com.yhao.today.api.Status;
 import com.yhao.today.pojo.BingPic;
 import com.yhao.today.pojo.HistoryToday;
+import com.yhao.today.pojo.MovieOffice;
 import com.yhao.today.ui.OnItemClickListener;
 import com.yhao.today.util.AutoClearedValue;
 
@@ -51,6 +52,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mHomeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         mHomeViewModel.getBingPicData().observe(this, this::bindBingPicData);
         mHomeViewModel.getHistoryTodayData().observe(this, this::bindHistoryTodayData);
+        mHomeViewModel.getMovieOfficeData().observe(this, new Observer<Resource<List<MovieOffice>>>() {
+            @Override
+            public void onChanged(@Nullable Resource<List<MovieOffice>> listResource) {
+                Logger.d(listResource);
+            }
+        });
     }
 
     private void bindHistoryTodayData(Resource<List<HistoryToday>> listResource) {

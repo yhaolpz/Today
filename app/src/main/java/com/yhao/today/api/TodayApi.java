@@ -4,6 +4,8 @@ import com.yhao.today.pojo.BingPic;
 import com.yhao.today.pojo.BingPicBody;
 import com.yhao.today.pojo.HistoryToday;
 import com.yhao.today.pojo.HistoryTodayBody;
+import com.yhao.today.pojo.MovieOffice;
+import com.yhao.today.pojo.MovieOfficeBody;
 
 import java.util.List;
 
@@ -20,11 +22,13 @@ public interface TodayApi {
 
 
     @GET("1287-1?showapi_sign=758d7ae717294581b8b44a4668d01e8b&showapi_appid=50325")
-    Call<WrapResult<BingPicBody<BingPic>>> getBingPicCall();
+    Call<WrapResult<BingPicBody<BingPic>>> getBingPic();
 
     @GET("119-42?showapi_sign=758d7ae717294581b8b44a4668d01e8b&showapi_appid=50325")
-    Call<WrapResult<HistoryTodayBody<List<HistoryToday>>>> getHistoryTodayBody();
+    Call<WrapResult<HistoryTodayBody<List<HistoryToday>>>> getHistoryToday();
 
+    @GET("578-2?showapi_sign=758d7ae717294581b8b44a4668d01e8b&showapi_appid=50325")
+    Call<WrapResult<MovieOfficeBody<List<MovieOffice>>>> getMovieOffice();
 
 
 }

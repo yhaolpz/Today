@@ -7,8 +7,10 @@ import android.arch.lifecycle.ViewModel;
 import com.yhao.today.api.Resource;
 import com.yhao.today.pojo.BingPic;
 import com.yhao.today.pojo.HistoryToday;
+import com.yhao.today.pojo.MovieOffice;
 import com.yhao.today.repository.BingPicRepository;
 import com.yhao.today.repository.HistoryTodayRepository;
+import com.yhao.today.repository.MovieOfficeRepository;
 
 import java.util.List;
 
@@ -18,16 +20,21 @@ import java.util.List;
  */
 
 public class HomeViewModel extends ViewModel {
+
     private LiveData<Resource<BingPic>> mBingPicData;
+    private BingPicRepository mBingPicRepository;
 
     private LiveData<Resource<List<HistoryToday>>> mHistoryTodayData;
-
-    private BingPicRepository mBingPicRepository;
     private HistoryTodayRepository mHistoryTodayRepository;
+
+    private LiveData<Resource<List<MovieOffice>>> mMovieOfficeData;
+    private MovieOfficeRepository mMovieOfficeRepository;
+
 
     public HomeViewModel() {
         mBingPicRepository = new BingPicRepository();
         mHistoryTodayRepository = new HistoryTodayRepository();
+        mMovieOfficeRepository = new MovieOfficeRepository();
     }
 
     public LiveData<Resource<BingPic>> getBingPicData() {
@@ -44,6 +51,14 @@ public class HomeViewModel extends ViewModel {
         }
         mHistoryTodayData = mHistoryTodayRepository.loadHistoryToday();
         return mHistoryTodayData;
+    }
+
+    public LiveData<Resource<List<MovieOffice>>> getMovieOfficeData() {
+        if (mMovieOfficeData == null) {
+            mMovieOfficeData = new MediatorLiveData<>();
+        }
+        mMovieOfficeData = mMovieOfficeRepository.loadMovieOffice();
+        return mMovieOfficeData;
     }
 
 

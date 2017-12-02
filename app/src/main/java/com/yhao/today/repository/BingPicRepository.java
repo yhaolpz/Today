@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
-import com.yhao.today.db.MyDatabase;
 import com.yhao.today.pojo.BingPicBody;
 import com.yhao.today.api.TodayApi;
 import com.yhao.today.commen.App;
@@ -14,12 +13,7 @@ import com.yhao.today.api.Resource;
 import com.yhao.today.db.dao.BingPicDao;
 import com.yhao.today.pojo.BingPic;
 import com.yhao.today.api.WrapResult;
-import com.yhao.today.util.RateLimiter;
 import com.yhao.today.util.TimeUtil;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
 
 import retrofit2.Call;
 
@@ -65,7 +59,7 @@ public class BingPicRepository {
             @NonNull
             @Override
             protected Call<WrapResult<BingPicBody<BingPic>>> createCall() {
-                return mTodayApi.getBingPicCall();
+                return mTodayApi.getBingPic();
             }
 
             @Override

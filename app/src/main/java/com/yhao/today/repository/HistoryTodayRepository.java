@@ -47,7 +47,6 @@ public class HistoryTodayRepository {
 
             @Override
             protected boolean shouldFetch(List<HistoryToday> data) {
-                Logger.d(data);
                 return data == null || data.isEmpty() ||
                         (App.getOneMinRateLimit().shouldFetch(data.getClass().getSimpleName())
                                 && !(TimeUtil.getDay() == data.get(0).getDay()

@@ -10,8 +10,8 @@ import android.support.annotation.NonNull;
 
 @Entity()
 public class MovieOffice {
-    @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String date;
     private String AvgPrice;
     private String MovieDay;
@@ -22,6 +22,14 @@ public class MovieOffice {
     private String MovieName;
     private String AvpPeoPle;
     private String BoxOffice;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDate() {
         return date;
@@ -104,4 +112,19 @@ public class MovieOffice {
     }
 
 
+    @Override
+    public String toString() {
+        return "MovieOffice{" +
+                "date='" + date + '\'' +
+                ", AvgPrice='" + AvgPrice + '\'' +
+                ", MovieDay='" + MovieDay + '\'' +
+                ", Rank='" + Rank + '\'' +
+                ", WomIndex='" + WomIndex + '\'' +
+                ", SumBoxOffice='" + SumBoxOffice + '\'' +
+                ", BoxOffice_Up='" + BoxOffice_Up + '\'' +
+                ", MovieName='" + MovieName + '\'' +
+                ", AvpPeoPle='" + AvpPeoPle + '\'' +
+                ", BoxOffice='" + BoxOffice + '\'' +
+                '}';
+    }
 }

@@ -15,7 +15,7 @@ import com.yhao.today.pojo.MovieOffice;
  * https://github.com/yhaolpz
  */
 
-@Database(entities = {BingPic.class, HistoryToday.class,MovieOffice.class}, version = 5 ,exportSchema = true)
+@Database(entities = {BingPic.class, HistoryToday.class,MovieOffice.class}, version = 6 ,exportSchema = true)
 public abstract class MyDatabase extends RoomDatabase {
 
     public abstract BingPicDao bingPicDao();

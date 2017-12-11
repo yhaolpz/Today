@@ -61,7 +61,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void bindHistoryTodayData(Resource<List<HistoryToday>> listResource) {
-        Logger.d(listResource);
         if (listResource.status == Status.SUCCESS) {
             AutoClearedValue<HistoryTodayAdapter> historyTodayAdapter = new AutoClearedValue<>(
                     this, new HistoryTodayAdapter(listResource.data));

@@ -3,14 +3,15 @@ package com.yhao.today.ui.home;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,7 +79,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void bindBingPicData(Resource<BingPic> bingPicResource) {
         if (bingPicResource.status == Status.SUCCESS) {
             BingPic bingPic = bingPicResource.data;
-            Glide.with(this).load(bingPic.getImg_1366()).signature(new StringSignature(bingPic.getTitle())).into(mBingPicIv);
+            if (bingPic == null) {
+                return;
+            }
+            if (!TextUtils.isEmpty(bingPic.getTitle())) {
+                Glide.with(this).load(bingPic.getImg_1366()).signature(new StringSignature(bingPic.getTitle())).into(mBingPicIv);
+            }
             mBingPicTitleTv.setText(bingPic.getTitle());
             mBingPicSubTitleTv.setText(bingPic.getSubtitle());
             mBingPicDescriptionTv.setText(bingPic.getDescription());
@@ -88,7 +94,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //findView
